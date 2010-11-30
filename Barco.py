@@ -2,17 +2,19 @@ import os
 from random import randint
 import random
 import pygame
+
 relogio = pygame.time.Clock()
 
 class Barco:
     def __init__(self):
         self.relogio = relogio
-        self.contador = 1
+        self.contador = 16
 
-        while self.contador <= 16:
+
+        while self.contador >= 1:
             #self.relogio.tick(10)
             self.imagem = pygame.image.load("imagens" + os.sep + "explosao" + str(self.contador) + ".jpg")
-            self.contador += 1
+            self.contador -= 1
 
 class Bloco:
     def __init__(self):
@@ -25,6 +27,8 @@ class Bloco:
         else:
             self.imagem = self.barco.imagem
 
+
+    #METODO QUE VERIFICA SE O CLICK FOI NUMA POSICAO QUE TENHA BARCO
     def tem_barco(self):
         return not self.barco == None
 
@@ -34,8 +38,6 @@ class Mapa:
         self.x = x
         self.y = y
         self.cria_matriz(10, 10) #ORDEM DA MATRIZ
-        self.coloca_barcos(15) #QUANTIDADE BARCO
-        self.vida = pygame.image.load("imagens" + os.sep + "vida.jpg") #134,415
 
         self.coordenadas_porta_avioes = None
         self.coordenadas_submarino = None
@@ -50,11 +52,6 @@ class Mapa:
             for j in range(colunas):
                 self.matriz[i].append( Bloco() )
                 
-
-    def coordenadas_barcos(self, barco):
-        if barco == 1:
-            return self.coordenadas_porta_avioes
-
     #METODO QUE DEFINE LUGARES DOS BARCOS E TRATA AS COLISOES
     def coloca_barcos(self, num_barcos):
 
@@ -73,7 +70,7 @@ class Mapa:
             for i in xrange(5):
                 self.matriz[posicao_x + i][posicao_y].barco = Barco()
                 self.coordenadas_porta_avioes.append( (posicao_x + i, posicao_y) )
-
+   
         #SUBMARINO
         self.coordenadas_submarino = []
         inclinacao = random.randint(0,1)

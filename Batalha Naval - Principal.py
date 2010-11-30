@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#! /usr/bin/env python
+
 import pygame
 from pygame.locals import *
 from sys import exit
@@ -186,15 +187,6 @@ while True:
         elif event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 exit()
-
-        #DAR OU TIRAR PAUSA NA MUSICA QUANDO PRESSIONAR P
-        elif tecla_pressionada[K_p]:
-            if tocando_musica == True:
-                pygame.mixer.music.pause()
-                tocando_musica = False
-            else:
-                pygame.mixer.music.unpause()
-                tocando_musica = True
 
         #TELA CHEIA OU JANELA QUANDO PRESSIONA F
         elif tecla_pressionada[K_f]:
