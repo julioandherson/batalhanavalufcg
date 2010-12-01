@@ -70,7 +70,7 @@ def main():
                     pygame.mixer.music.stop()
                     return
 
-        #MENU (JANELA)
+        #BOTAO JANELA
         if posicao_janela[0] <= posicao_mouse[0] <= posicao_janela[0] + medida_janela[0] and posicao_janela[1] <= posicao_mouse[1] <= posicao_janela[1] + medida_janela[1]:
             botao_janela = lista_botoes_janela[1]
             if som1 == False:
@@ -93,7 +93,7 @@ def main():
             botao_janela = lista_botoes_janela[0]
             som1 = False
 
-        #MENU (TELA CHEIA)
+        #BOTAO TELA CHEIA
         if posicao_tela_cheia[0] <= posicao_mouse[0] <= posicao_tela_cheia[0] + medida_tela_cheia[0] and posicao_tela_cheia[1] <= posicao_mouse[1] <= posicao_tela_cheia[1] + medida_tela_cheia[1]:
             botao_tela_cheia = lista_botoes_tela_cheia[1]
             if som2 == False:
@@ -114,7 +114,7 @@ def main():
             botao_tela_cheia = lista_botoes_tela_cheia[0]
             som2 = False
 
-        #MENU PRINCIPAL(BOTAO DE VOLTAR)
+        #BOTAO MENU PRINCIPAL
         if posicao_menu_principal[0] <= posicao_mouse[0] <= posicao_menu_principal[0] + medida_menu_principal[0] and posicao_menu_principal[1] <= posicao_mouse[1] <= posicao_menu_principal[1] + medida_menu_principal[1]:
             botao_menu_principal = lista_botoes_menu_principal[1]
             if som3 == False:

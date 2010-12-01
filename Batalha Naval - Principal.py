@@ -15,7 +15,6 @@ pygame.init()
 #CONFIGURACOES DE TELA
 tamanho_da_tela = largura, altura = 800, 600
 tela = pygame.display.set_mode( tamanho_da_tela, 0, 32 )
-tela_cheia = False
 
 #CARREGA SONS
 sobre_opcao = pygame.mixer.Sound("audio" + os.sep + "sobre_opcao.wav")
@@ -187,20 +186,6 @@ while True:
         elif event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 exit()
-
-        #TELA CHEIA OU JANELA QUANDO PRESSIONA F
-        elif tecla_pressionada[K_f]:
-            if tela_cheia == False:
-                tela = pygame.display.set_mode( tamanho_da_tela, FULLSCREEN, 32 )
-                tela_cheia = True
-                arquivo = open("Tela.txt", "w")
-                arquivo.write("Tela Cheia")
-                arquivo.close()
-            else:
-                tela = pygame.display.set_mode( tamanho_da_tela, 0, 32 )
-                arquivo = open("Tela.txt", "w")
-                arquivo.write("Janela")
-                arquivo.close()
 
     #BLITANDO AS IMAGENS NA TELA            
     tela.blit(fundo, (0, 0) )

@@ -6,9 +6,6 @@ import os
 from random import randint
 from Matriz import Matriz
 from Barco import *
-from time import sleep as espera
-
-relogio = pygame.time.Clock()
 
 def main():
     pygame.init()
@@ -26,24 +23,22 @@ def main():
         tela = pygame.display.set_mode( tamanho_da_tela, 0, 32 )
 
     #FONTE
-    verde = (0, 255, 0)
+    branco = (255, 255, 255)
     fonte = pygame.font.SysFont("comic sans", 28, bold = True)
 
     venceu = False
-    voce_venceu = fonte.render("Parabens!! Voce venceu!! Pressione Esc para retornar ao Menu Principal.", True, verde)
+    voce_venceu = fonte.render("Parabens!! Voce venceu!! Pressione Esc para retornar ao Menu Principal.", True, branco)
     medida_voce_venceu = voce_venceu.get_size()
     centro_tela_venceu = largura / 2 - medida_voce_venceu[0] / 2, altura / 2 - medida_voce_venceu[1] / 2
     perdeu = False
-    voce_perdeu = fonte.render("Que pena!! Voce perdeu!! Pressione Esc para retornar ao Menu Principal.", True, verde)
+    voce_perdeu = fonte.render("Que pena!! Voce perdeu!! Pressione Esc para retornar ao Menu Principal.", True, branco)
     medida_voce_perdeu = voce_perdeu.get_size()
     centro_tela_perdeu = largura / 2 - medida_voce_perdeu[0] / 2, altura / 2 - medida_voce_perdeu[1] / 2
     
     #MUSICA E SONS
     pygame.mixer.music.load("audio" + os.sep + "jogando.mp3")
     pygame.mixer.music.play(-1)
-
     acertou = pygame.mixer.Sound("audio" + os.sep + "acertou.wav")
-    errou = pygame.mixer.Sound("audio" + os.sep + "errou.wav")
 
     #IMAGENS
     campo = pygame.image.load("imagens" + os.sep + "campo.jpg")
@@ -102,20 +97,7 @@ def main():
     vez_jogador = True
     vez_oponente = False
 
-    print "AVIOES JOGADOR", coordenadas_porta_avioes_jogador
-    print "SUBMARINO JOGADOR", coordenadas_submarino_jogador
-    print "GUERRA I JOGADOR", coordenadas_navio_de_guerra_jogador
-    print "GUERRA II JOGADOR", coordenadas_navio_de_guerraII_jogador
-    print "BARCO JOGADOR", coordenadas_barco_jogador
-    print "------------------------------------------"
-    print "AVIOES OPONENTE", coordenadas_porta_avioes_oponente
-    print "SUBMARINO OPONENTE", coordenadas_submarino_oponente
-    print "GUERRA I OPONENTE", coordenadas_navio_de_guerra_oponente
-    print "GUERRA II OPONENTE", coordenadas_navio_de_guerraII_oponente
-    print "BARCO OPONENTE", coordenadas_barco_oponente
-
     while True:
-
         #CAPTURA EVENTOS PELO TECLADO E MOUSE
         tecla_pressionada = pygame.key.get_pressed()
         clique_mouse = pygame.mouse.get_pressed()
@@ -150,7 +132,6 @@ def main():
                         if not posicao.click():
                             #SE NAO TIVER BARCO
                             if posicao.tem_barco() == False:
-                                errou.play()
                                 vez_jogador = False
                                 vez_oponente = True
 
@@ -179,7 +160,7 @@ def main():
                     linha_oponente = randint(0, 9)
                     coluna_oponente = randint(0, 9)
                     if (linha_oponente, coluna_oponente) in lista_coordenadas_oponente:
-                        #RETIRA A COORDENADA PRA NAO SER JOGADA 2 VEZES
+                        #RETIRA A COORDENADA PRA NAO SER JOGADA 2 VEZES NO MESMO LUGAR
                         lista_coordenadas_oponente.remove( (linha_oponente, coluna_oponente) )
                         break
 
@@ -190,13 +171,11 @@ def main():
                 if not posicao_oponente.click():
                     #SE NAO TIVER BARCO
                     if posicao_oponente.tem_barco() == False:
-                        errou.play() 
                         vez_jogador = True
                         vez_oponente = False
                     #SE TIVER BARCO    
                     elif posicao_oponente.tem_barco() == True:
                         acertou.play()
-                        #espera(2)
                         vez_jogador = False
                         vez_oponente = True
 
@@ -230,135 +209,135 @@ def main():
         campo_jogador.blitar(tela)
         campo_oponente.blitar(tela)
 
-        #VIDA PORTA AVIOES DO JOGADOR
-        for i in coordenadas_porta_avioes_jogador:
-            if len(coordenadas_porta_avioes_jogador) == 5:
+        #VIDA PORTA AVIOES DO OPONENTE
+        for i in coordenadas_porta_avioes_oponente:
+            if len(coordenadas_porta_avioes_oponente) == 5:
                 tela.blit(vida, (165, 445) )
                 tela.blit(vida, (175, 445) )
                 tela.blit(vida, (185, 445) )
                 tela.blit(vida, (195, 445) )
                 tela.blit(vida, (205, 445) )
-            elif len(coordenadas_porta_avioes_jogador) == 4:
+            elif len(coordenadas_porta_avioes_oponente) == 4:
                 tela.blit(vida, (165, 445) )
                 tela.blit(vida, (175, 445) )
                 tela.blit(vida, (185, 445) )
                 tela.blit(vida, (195, 445) )
-            elif len(coordenadas_porta_avioes_jogador) == 3:
+            elif len(coordenadas_porta_avioes_oponente) == 3:
                 tela.blit(vida, (165, 445) )
                 tela.blit(vida, (175, 445) )
                 tela.blit(vida, (185, 445) )
-            elif len(coordenadas_porta_avioes_jogador) == 2:
+            elif len(coordenadas_porta_avioes_oponente) == 2:
                 tela.blit(vida, (165, 445) )
                 tela.blit(vida, (175, 445) )
-            elif len(coordenadas_porta_avioes_jogador) == 1:
+            elif len(coordenadas_porta_avioes_oponente) == 1:
                 tela.blit(vida, (165, 445) )
 
-        #VIDA SUBMARINO DO JOGADOR
-        for i in coordenadas_submarino_jogador:
-            if len(coordenadas_submarino_jogador) == 4:
+        #VIDA SUBMARINO DO OPONENTE
+        for i in coordenadas_submarino_oponente:
+            if len(coordenadas_submarino_oponente) == 4:
                 tela.blit(vida, (165, 480) )
                 tela.blit(vida, (175, 480) )
                 tela.blit(vida, (185, 480) )
                 tela.blit(vida, (195, 480) )
-            elif len(coordenadas_submarino_jogador) == 3:
+            elif len(coordenadas_submarino_oponente) == 3:
                 tela.blit(vida, (165, 480) )
                 tela.blit(vida, (175, 480) )
                 tela.blit(vida, (185, 480) )
-            elif len(coordenadas_submarino_jogador) == 2:
+            elif len(coordenadas_submarino_oponente) == 2:
                 tela.blit(vida, (165, 480) )
                 tela.blit(vida, (175, 480) )
-            elif len(coordenadas_submarino_jogador) == 1:
+            elif len(coordenadas_submarino_oponente) == 1:
                 tela.blit(vida, (165, 480) )
 
-        #VIDA NAVIO DE GUERRA DO JOGADOR
-        for i in coordenadas_navio_de_guerra_jogador:
-            if len(coordenadas_navio_de_guerra_jogador) == 3:
+        #VIDA NAVIO DE GUERRA DO OPONENTE
+        for i in coordenadas_navio_de_guerra_oponente:
+            if len(coordenadas_navio_de_guerra_oponente) == 3:
                 tela.blit(vida, (165, 510) )
                 tela.blit(vida, (175, 510) )
                 tela.blit(vida, (185, 510) )
-            elif len(coordenadas_navio_de_guerra_jogador) == 2:
+            elif len(coordenadas_navio_de_guerra_oponente) == 2:
                 tela.blit(vida, (165, 510) )
                 tela.blit(vida, (175, 510) )
-            elif len(coordenadas_navio_de_guerra_jogador) == 1:
+            elif len(coordenadas_navio_de_guerra_oponente) == 1:
                 tela.blit(vida, (165, 510) )
 
-        #VIDA NAVIO DE GUERRA II DO JOGADOR
-        for i in coordenadas_navio_de_guerraII_jogador:
-            if len(coordenadas_navio_de_guerraII_jogador) == 2:
+        #VIDA NAVIO DE GUERRA II DO OPONENTE
+        for i in coordenadas_navio_de_guerraII_oponente:
+            if len(coordenadas_navio_de_guerraII_oponente) == 2:
                 tela.blit(vida, (165, 545) )
                 tela.blit(vida, (175, 545) )
-            elif len(coordenadas_navio_de_guerraII_jogador) == 1:
+            elif len(coordenadas_navio_de_guerraII_oponente) == 1:
                 tela.blit(vida, (165, 545) )
 
-        #VIDA BARCO DO JOGADOR
-        for i in coordenadas_barco_jogador:
-            if len(coordenadas_barco_jogador) == 1:
+        #VIDA BARCO DO OPONENTE
+        for i in coordenadas_barco_oponente:
+            if len(coordenadas_barco_oponente) == 1:
                 tela.blit(vida, (165, 575) )
 
-        #VIDA PORTA AVIOES DO OPONENTE
-        for i in coordenadas_porta_avioes_oponente:
-            if len(coordenadas_porta_avioes_oponente) == 5:
+        #VIDA PORTA AVIOES DO JOGADOR
+        for i in coordenadas_porta_avioes_jogador:
+            if len(coordenadas_porta_avioes_jogador) == 5:
                 tela.blit(vida, (565, 445) )
                 tela.blit(vida, (575, 445) )
                 tela.blit(vida, (585, 445) )
                 tela.blit(vida, (595, 445) )
                 tela.blit(vida, (605, 445) )
-            elif len(coordenadas_porta_avioes_oponente) == 4:
+            elif len(coordenadas_porta_avioes_jogador) == 4:
                 tela.blit(vida, (565, 445) )
                 tela.blit(vida, (575, 445) )
                 tela.blit(vida, (585, 445) )
                 tela.blit(vida, (595, 445) )
-            elif len(coordenadas_porta_avioes_oponente) == 3:
+            elif len(coordenadas_porta_avioes_jogador) == 3:
                 tela.blit(vida, (565, 445) )
                 tela.blit(vida, (575, 445) )
                 tela.blit(vida, (585, 445) )
-            elif len(coordenadas_porta_avioes_oponente) == 2:
+            elif len(coordenadas_porta_avioes_jogador) == 2:
                 tela.blit(vida, (565, 445) )
                 tela.blit(vida, (575, 445) )
-            elif len(coordenadas_porta_avioes_oponente) == 1:
+            elif len(coordenadas_porta_avioes_jogador) == 1:
                 tela.blit(vida, (565, 445) )
                     
 
-        #VIDA SUBMARINO DO OPONENTE
-        for i in coordenadas_submarino_oponente:
-            if len(coordenadas_submarino_oponente) == 4:
+        #VIDA SUBMARINO DO JOGADOR
+        for i in coordenadas_submarino_jogador:
+            if len(coordenadas_submarino_jogador) == 4:
                 tela.blit(vida, (565, 480) )
                 tela.blit(vida, (575, 480) )
                 tela.blit(vida, (585, 480) )
                 tela.blit(vida, (595, 480) )
-            elif len(coordenadas_submarino_oponente) == 3:
+            elif len(coordenadas_submarino_jogador) == 3:
                 tela.blit(vida, (565, 480) )
                 tela.blit(vida, (575, 480) )
                 tela.blit(vida, (585, 480) )
-            elif len(coordenadas_submarino_oponente) == 2:
+            elif len(coordenadas_submarino_jogador) == 2:
                 tela.blit(vida, (565, 480) )
                 tela.blit(vida, (575, 480) )
-            elif len(coordenadas_submarino_oponente) == 1:
+            elif len(coordenadas_submarino_jogador) == 1:
                 tela.blit(vida, (565, 480) )
 
-        #VIDA NAVIO DE GUERRA DO OPONENTE
-        for i in coordenadas_navio_de_guerra_oponente:
-            if len(coordenadas_navio_de_guerra_oponente) == 3:
+        #VIDA NAVIO DE GUERRA DO JOGADOR
+        for i in coordenadas_navio_de_guerra_jogador:
+            if len(coordenadas_navio_de_guerra_jogador) == 3:
                 tela.blit(vida, (565, 510) )
                 tela.blit(vida, (575, 510) )
                 tela.blit(vida, (585, 510) )
-            elif len(coordenadas_navio_de_guerra_oponente) == 2:
+            elif len(coordenadas_navio_de_guerra_jogador) == 2:
                 tela.blit(vida, (565, 510) )
                 tela.blit(vida, (575, 510) )
-            elif len(coordenadas_navio_de_guerra_oponente) == 1:
+            elif len(coordenadas_navio_de_guerra_jogador) == 1:
                 tela.blit(vida, (565, 510) )
 
-        #VIDA NAVIO DE GUERRA II DO OPONENTE
-        for i in coordenadas_navio_de_guerraII_oponente:
-            if len(coordenadas_navio_de_guerraII_oponente) == 2:
+        #VIDA NAVIO DE GUERRA II DO JOGADOR
+        for i in coordenadas_navio_de_guerraII_jogador:
+            if len(coordenadas_navio_de_guerraII_jogador) == 2:
                 tela.blit(vida, (565, 545) )
                 tela.blit(vida, (575, 545) )
-            elif len(coordenadas_navio_de_guerraII_oponente) == 1:
+            elif len(coordenadas_navio_de_guerraII_jogador) == 1:
                 tela.blit(vida, (565, 545) )
 
-        #VIDA BARCO DO OPONENTE
-        for i in coordenadas_barco_oponente:
-            if len(coordenadas_barco_oponente) == 1:
+        #VIDA BARCO DO JOGADOR
+        for i in coordenadas_barco_jogador:
+            if len(coordenadas_barco_jogador) == 1:
                 tela.blit(vida, (565, 575) )
 
         #BLITA IMAGEM QUE O JOGADOR PERDEU OU GANHOU

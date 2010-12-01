@@ -3,18 +3,20 @@ from random import randint
 import random
 import pygame
 
-relogio = pygame.time.Clock()
+
 
 class Barco:
     def __init__(self):
+        self.imagem = pygame.image.load("imagens" + os.sep + "explosao3.jpg")
+
+
+        """relogio = pygame.time.Clock()
         self.relogio = relogio
         self.contador = 16
-
-
         while self.contador >= 1:
             #self.relogio.tick(10)
             self.imagem = pygame.image.load("imagens" + os.sep + "explosao" + str(self.contador) + ".jpg")
-            self.contador -= 1
+            self.contador -= 1"""
 
 class Bloco:
     def __init__(self):
